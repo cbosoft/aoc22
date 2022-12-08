@@ -7,4 +7,5 @@ Daily coding challenges.
 # Challenges
 
  - [Day 1: Calorie Counting](aoc01)
+ - [Day 2: Rock Paper Scissors](aoc02)
 
