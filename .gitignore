@@ -1,0 +1,11 @@
+# OS Stuff
+.DS_Store
+
+# Editor stuff
+*.un~
+.idea
+
+# Cargo stuff
+cargo.lock
+build
+target
