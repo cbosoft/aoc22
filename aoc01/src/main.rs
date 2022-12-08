@@ -36,27 +36,21 @@ fn parse_lines_get_calories(lines: Lines<BufReader<File>>) -> Vec<u32>
     cals
 }
 
-fn index_of_max(v: &Vec<u32>) -> usize {
-    let mut max = v.first().expect("empty vector");
-    let mut i_max = 0usize;
-
-    for (i, vi) in v.iter().enumerate() {
-        if vi > max {
-            max = vi;
-            i_max = i;
-        }
-    }
-
-    i_max
-}
-
 fn main() {
     let lines = read_lines("calories.csv").expect("foo");
     let calories = parse_lines_get_calories(lines);
-    let index_of_elf_with_most = index_of_max(&calories);
+    let mut indices: Vec<usize> = (0..calories.len()).collect();
+    indices.sort_by_key(|i| u32::MAX - calories[*i]);
+
+    let top1 = indices[0];
+    let top1_calories = calories[top1];
+    println!("Part 1");
     println!(
         "The elf with the most calories is #{} with {} calories.",
-        index_of_elf_with_most+1,
-        calories[index_of_elf_with_most]
+        top1, top1_calories
     );
+
+    let top3_calories: u32 = indices[0..3].iter().map(|i| calories[*i]).sum();
+    println!("Part 2");
+    println!("The top 3 elves have, in total, {top3_calories} calories.");
 }
