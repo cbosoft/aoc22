@@ -8,4 +8,5 @@ Daily coding challenges.
 
  - [Day 1: Calorie Counting](aoc01)
  - [Day 2: Rock Paper Scissors](aoc02)
+ - [Day 2: Rucksack Reorganisation](aoc03)
 
