@@ -1,6 +1,6 @@
 # Advent of Code, 2022
 
-Daily coding challenges.
+Daily coding challenges throughout December.
 
 [website](https://adventofcode.com/2022)
 
