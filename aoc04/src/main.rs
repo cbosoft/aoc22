@@ -47,11 +47,34 @@ fn are_sets_subsets(a: HashSet<u8>, b: HashSet<u8>) -> u16 {
     }
 }
 
-fn main() {
+fn do_sets_overlap_at_all(a: HashSet<u8>, b: HashSet<u8>) -> u16 {
+    if a.intersection(&b).count() > 0 {
+        1
+    }
+    else {
+        0
+    }
+}
+
+fn part1() {
     let lines = read_lines("pairings.txt").unwrap();
     let subsets_in_total: u16 = lines
         .map(|s| line2ranges(s.unwrap()))
         .map(|(a, b)| are_sets_subsets(a, b))
         .sum();
-    println!("Total: {}", subsets_in_total);
+    println!("Part 2 - # subsets: {}", subsets_in_total);
+}
+
+fn part2() {
+    let lines = read_lines("pairings.txt").unwrap();
+    let overlaps_in_total: u16 = lines
+        .map(|s| line2ranges(s.unwrap()))
+        .map(|(a, b)| do_sets_overlap_at_all(a, b))
+        .sum();
+    println!("Part 1 - # overlapping sets: {}", overlaps_in_total);
+}
+
+fn main() {
+    part1();
+    part2();
 }
