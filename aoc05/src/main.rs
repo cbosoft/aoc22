@@ -17,9 +17,11 @@ impl State {
     }
 
     pub fn apply_command(&mut self, number: usize, source: usize, destination: usize) {
-        for _ in 0..number {
-            let c = self.stacks[source].pop().unwrap();
-            self.stacks[destination].push(c);
+        let to_move: Vec<char> = (0..number)
+            .map(|_| self.stacks[source].pop().unwrap())
+            .collect();
+        for item in to_move.iter().rev() {
+            self.stacks[destination].push(*item);
         }
     }
 
@@ -105,8 +107,8 @@ fn parse_state_and_run_commands(lines: Lines<BufReader<File>>) -> State
 fn main()
 {
     let lines = read_lines("crate_state_and_commands.txt");
-    let result = parse_and_run_commands(lines.unwrap());
-    println!("Part 1: {}", result.tops());
+    let result = parse_state_and_run_commands(lines.unwrap());
+    println!("Part 2: {}", result.tops());
 }
 
 #[cfg(test)]
