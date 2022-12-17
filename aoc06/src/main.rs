@@ -14,19 +14,19 @@ impl PacketBuff {
     }
 
     fn remove_old(&mut self) {
-        let old = self.buf.remove(0);
+        self.buf.remove(0);
     }
 
     pub fn push_char(&mut self, c: char) -> bool {
-        if self.buf.len() > 3 {
+        if self.buf.len() > 13 {
             self.remove_old()
         }
 
         self.buf.push(c);
 
-        if self.buf.len() > 3 {
+        if self.buf.len() > 13 {
             let set: HashSet<char, RandomState> = HashSet::from_iter(self.buf.iter().map(|cr|*cr));
-            set.len() == 4
+            set.len() == 14
         }
         else {
             false
@@ -53,7 +53,7 @@ fn main() {
     let mut rdr = BufReader::new(file);
     let p = get_start_packet_pos(rdr.chars().map(|cr|cr.unwrap()));
 
-    println!("Start packet at p={}", p);
+    println!("First message packet at p={}", p);
 }
 
 #[cfg(test)]
@@ -62,9 +62,14 @@ mod tests{
 
     #[test]
     fn test_cases() {
-        assert_eq!(5, get_start_packet_pos("bvwbjplbgvbhsrlpgdmjqwftvncz".chars()));
-        assert_eq!(6, get_start_packet_pos("nppdvjthqldpwncqszvftbrmjlhg".chars()));
-        assert_eq!(10, get_start_packet_pos("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg".chars()));
-        assert_eq!(11, get_start_packet_pos("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw".chars()));
+        // assert_eq!(5, get_start_packet_pos("bvwbjplbgvbhsrlpgdmjqwftvncz".chars()));
+        // assert_eq!(6, get_start_packet_pos("nppdvjthqldpwncqszvftbrmjlhg".chars()));
+        // assert_eq!(10, get_start_packet_pos("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg".chars()));
+        // assert_eq!(11, get_start_packet_pos("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw".chars()));
+
+        assert_eq!(23, get_start_packet_pos("bvwbjplbgvbhsrlpgdmjqwftvncz".chars()));
+        assert_eq!(23, get_start_packet_pos("nppdvjthqldpwncqszvftbrmjlhg".chars()));
+        assert_eq!(29, get_start_packet_pos("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg".chars()));
+        assert_eq!(26, get_start_packet_pos("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw".chars()));
     }
 }
